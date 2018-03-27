@@ -1,0 +1,123 @@
+/* IntLinkedList.cpp : 2 - Fall 2015
+Given a(possibly empty) singly linked list of distinct integers, 
+write a function that removes the node containing the integer x.
+The function returns true if x is found, false otherwise.The prototype is
+bool remove_node(nodeptr & *head, int x)
+*/
+#include "stdafx.h"
+#include <cstdio>
+
+struct node
+{
+	int value;
+	struct node *next;
+};
+
+class SinglyLinkedList
+{
+public:
+	node *start;
+
+	SinglyLinkedList()
+	{
+		start = NULL;
+	}
+
+	void display()
+	{
+		node *current = start;
+		while (current != NULL)
+		{
+			printf("%d\n", current->value);
+			current = current->next;
+		}
+
+	}
+
+	void add_node(int val)
+	{
+		node *temp = new node();
+		temp->value = val;
+		temp->next = NULL;
+
+		if (start == NULL)
+		{
+			start = temp;
+		}
+		else
+		{
+			node *current = start;
+			while (current->next != NULL)
+			{
+				current = current->next;
+			}
+			current->next = temp;
+		}
+	}
+
+	bool remove_node(int val)
+	{
+		if (start == NULL)
+		{
+			return false;
+		}
+		else if (start->value == val)
+		{
+			start = start->next;
+			return true;
+		}
+		else
+		{
+			node *temp = start->next;
+			node *previousNode = start;
+			while (temp != NULL)
+			{
+				if (temp->value == val)
+				{
+					previousNode->next = temp->next;
+					return true;
+				}
+				previousNode = temp;
+				temp = temp->next;
+			}
+			return false;
+		}
+	}
+
+};
+
+int main()
+{
+	SinglyLinkedList l;
+	
+	l.add_node(1);
+	l.add_node(2);
+	l.add_node(3);
+	l.add_node(4);
+	l.add_node(5);
+	l.display();
+	
+	l.remove_node(3);
+	l.display();
+	
+	l.remove_node(2);
+	l.display();
+
+	l.remove_node(5);
+	l.display();
+
+	l.remove_node(1);
+	l.display();
+
+	l.remove_node(1);
+	l.display();
+
+	l.remove_node(4);
+	l.display();
+
+	l.remove_node(5);
+	l.display();
+	std::getchar();
+	return 0;
+}
+

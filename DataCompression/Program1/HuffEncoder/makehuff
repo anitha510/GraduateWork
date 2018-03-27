@@ -1,0 +1,16 @@
+CC=gcc
+CFLAGS = -g
+
+huff_enc: huff_enc.o imsub.o sub.o
+	$(CC) -o huff_enc huff_enc.o imsub.o sub.o
+
+huff_dec: huff_dec.o imsub.o sub.o
+	$(CC) -o huff_dec huff_dec.o imsub.o sub.o
+
+dpcm_dec: dpcm_dec.o unstuff.o nuquanflt.o predictor.o
+	$(CC) -o dpcm_dec dpcm_dec.o unstuff.o nuquanflt.o predictor.o -lm
+
+distau: distau.o readau.o get_file_size.o
+	$(CC) -o distau distau.o readau.o get_file_size.o -lm
+
+all: huff_enc huff_dec 

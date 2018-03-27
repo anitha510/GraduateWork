@@ -1,0 +1,83 @@
+/* LinkedListStack.cpp : 2 - Winter 2016
+Implement a stack of integers using a linked list. 
+Declare the data structure and give code for the following operations:
+a) initialize_to_empty
+b) push
+c) pop (pop should both return a value and remove it from the stack)
+*/
+#include "stdafx.h"
+#include <cstdio>
+
+struct node
+{
+	int value;
+	struct node *previous;
+};
+
+class stack
+{
+public:
+	struct node *top;
+
+	stack()
+	{	}
+	void initialize_to_empty()
+	{
+		top = NULL;
+	}
+	void push(int val)
+	{
+		struct node *data = new node();
+		data->value = val;
+		data->previous = NULL;
+
+		if (top == NULL)
+		{
+			top = data;
+		}
+		else
+		{
+			data->previous = top;
+			top = data;
+		}
+
+		printf("%s%d\n", "Push: ", top->value);
+	}
+	int pop()
+	{
+		if (top != NULL)
+		{
+			int val = top->value;
+			if (top->previous != NULL)
+			{
+				top = top->previous;
+			}
+			else
+			{
+				top = NULL;
+			}
+			printf("%s%d\n", "Pop: ",val);
+			return val;
+		}
+		printf("%s\n", "Error: Stack empty");
+			return -1;
+	}
+};
+
+int main()
+{
+	stack llStack;
+	llStack.initialize_to_empty();
+	llStack.push(1);
+	llStack.push(2);
+	llStack.pop();
+	llStack.push(3);
+	llStack.push(4);
+	llStack.pop();
+	llStack.pop();
+	llStack.pop();
+
+	std::getchar();
+    return 0;
+}
+

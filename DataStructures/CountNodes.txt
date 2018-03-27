@@ -1,0 +1,69 @@
+/* CountNodes.cpp : 1 - Spring 2015
+Write a recursive function “CountNodes” of a (possibly empty) binary tree, 
+which returns the total number of nodes in the tree. 
+Include the declaration of your data structure.
+*/
+#include "stdafx.h"
+#include <cstdio>
+
+struct tree
+{
+	int value;
+	struct tree *left;
+	struct tree *right;
+};
+
+
+int CountNodes(struct tree *root)
+{
+	if (root->left == NULL && root->right == NULL)
+		return 1;
+
+	int leftNodeCount = 0, rightNodeCount = 0;
+	if (root->left != NULL)
+		leftNodeCount = CountNodes(root->left);
+
+	if (root->right != NULL)
+		rightNodeCount = CountNodes(root->right);
+
+	return leftNodeCount + rightNodeCount + 1;
+}
+
+int main()
+{
+	struct tree *node1 = new tree();
+	node1->left = NULL;
+	node1->right = NULL;
+
+	struct tree *node2 = new tree();
+	node2->left = NULL;
+	node2->right = node1;
+
+	struct tree *node3 = new tree();
+	node3->left = NULL;
+	node3->right = node2;
+
+	struct tree *node4 = new tree();
+	node4->left = NULL;
+	node4->right = NULL;
+
+	struct tree *node5 = new tree();
+	node5->left = node4;
+	node5->right = node1;
+
+	struct tree *node6 = new tree();
+	node6->left = node3;
+	node6->right = node5;
+
+	printf("%d\n", CountNodes(node1));
+	printf("%d\n", CountNodes(node2));
+	printf("%d\n", CountNodes(node3));
+
+	printf("%d\n", CountNodes(node4));
+	printf("%d\n", CountNodes(node5));
+	printf("%d\n", CountNodes(node6));
+
+	std::getchar();
+	return 0;
+}
+

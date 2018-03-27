@@ -1,0 +1,71 @@
+/* CountInternal.cpp : 1 - Fall 2015
+Write the function int CountInternal(treeNode *p) 
+that counts the number of non-leaf nodes in the 
+(possibly empty) binary tree with root p. 
+Declare all data structures.
+*/
+#include "stdafx.h"
+#include <cstdio>
+
+struct tree
+{
+	int value;
+	struct tree *left;
+	struct tree *right;
+};
+
+
+int CountInternal(struct tree *root)
+{
+	if (root->left == NULL && root->right == NULL)
+		return 0;
+
+	int leftNodeCount = 0, rightNodeCount = 0;
+	if (root->left != NULL)
+		leftNodeCount = CountInternal(root->left);
+
+	if (root->right != NULL)
+		rightNodeCount = CountInternal(root->right);
+
+	return leftNodeCount + rightNodeCount + 1;
+}
+
+int main()
+{
+	struct tree *node1 = new tree();
+	node1->left = NULL;
+	node1->right = NULL;
+
+	struct tree *node2 = new tree();
+	node2->left = NULL;
+	node2->right = node1;
+
+	struct tree *node3 = new tree();
+	node3->left = NULL;
+	node3->right = node2;
+
+	struct tree *node4 = new tree();
+	node4->left = NULL;
+	node4->right = NULL;
+
+	struct tree *node5 = new tree();
+	node5->left = node4;
+	node5->right = node1;
+
+	struct tree *node6 = new tree();
+	node6->left = node3;
+	node6->right = node5;
+
+	printf("%d\n", CountInternal(node1));
+	printf("%d\n", CountInternal(node2));
+	printf("%d\n", CountInternal(node3));
+
+	printf("%d\n", CountInternal(node4));
+	printf("%d\n", CountInternal(node5));
+	printf("%d\n", CountInternal(node6));
+
+	std::getchar();
+	return 0;
+
+}
+

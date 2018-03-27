@@ -1,0 +1,57 @@
+/* EvenNodesInTree.cpp : 1 - Spring 2016
+Write a boolean function that is given a binary tree and 
+returns true if and only if the tree has an even number of nodes. 
+An empty tree is considered to have an even number of nodes.
+Notes:
+The function should have just one argument, a pointer to the root.
+No global variables may be used.
+No additional functions may be defined. You may not count the number of nodes.
+*/
+#include "stdafx.h"
+#include <cstdio>
+
+struct tree
+{
+	int value;
+	struct tree *left;
+	struct tree *right;
+};
+
+bool HasEvenNodes(struct tree *root)
+{
+	if (root->left == NULL && root->right == NULL)
+		return true;
+
+	bool leftEven, rightEven;
+	if (root->left != NULL)
+		leftEven = HasEvenNodes(root->left);
+	else
+		leftEven = true;
+
+	if (root->right != NULL)
+		rightEven = HasEvenNodes(root->right);
+	else
+		rightEven = true;
+
+	return leftEven ^ rightEven; // XOR
+}
+int main()
+{
+	struct tree *node1 = new tree();
+	node1->left = NULL;
+	node1->right = NULL;
+
+	struct tree *node2 = new tree();
+	node2->left = NULL;
+	node2->right = node1;
+
+	struct tree *node3 = new tree();
+	node3->left = NULL;
+	node3->right = node2;
+
+	printf("%d", HasEvenNodes(node2));
+
+	std::getchar();
+    return 0;
+}
+
